@@ -13,19 +13,34 @@ function injectCommentSection() {
                         commentSection.id = 'custom-comment-section';
                         commentSection.style.width = `${videoContainerWidth}px`;
                         commentSection.style.margin = '0 auto';
-                        message.style.display = 'none';
+                        commentsDisabledMessage.style.display = 'none'; // Hide the "Comments are turned off" message
+
                         commentSection.innerHTML = `
-                            <h3 style="color: white; margin-bottom: 16px;">Comments</h3>
-                            <div id="comment-box" style="display: flex; align-items: center; margin-bottom: 16px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3 style="color: white; margin-bottom: 16px;">${Math.floor(Math.random() * 1000) + 1} Comments</h3>
+                                <div style="display: flex; align-items: center;">
+                                    <span style="color: white; margin-right: 8px;">Sort by</span>
+                                    <select id="sort-comments" style="background-color: #303030; color: white; border: none; padding: 8px 16px; border-radius: 2px;">
+                                        <option value="newest">Newest</option>
+                                        <option value="oldest">Oldest</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; margin-bottom: 16px;">
                                 <div style="width: 40px; height: 40px; background-color: gray; border-radius: 50%; margin-right: 12px;"></div>
-                                <input style="background-color: #181818; color: white; border: 1px solid #303030; border-radius: 2px; padding: 10px; flex-grow: 1; margin-right: 8px; height: 20px;" id="comment-input" placeholder="Add a public comment...">
-                                <button style="background-color: #065fd4; color: white; border: none; padding: 10px 16px; border-radius: 2px; height: 36px;" id="post-comment">Comment</button>
+                                <input style="background-color: #181818; color: white; border: none; border-bottom: 1px solid #303030; padding: 10px; flex-grow: 1; margin-right: 8px; height: 20px;" id="comment-input" placeholder="Add a comment...">
                             </div>
                             <div id="comments-container" style="margin-top: 16px;"></div>
                         `;
                         commentsDisabledMessage.parentElement.appendChild(commentSection);
 
-                        document.getElementById('post-comment').addEventListener('click', () => {
+                        document.getElementById('comment-input').addEventListener('keypress', (event) => {
+                            if (event.key === 'Enter') {
+                                postComment();
+                            }
+                        });
+
+                        function postComment() {
                             const comment = document.getElementById('comment-input').value;
                             if (comment) {
                                 const commentContainer = document.getElementById('comments-container');
@@ -58,7 +73,7 @@ function injectCommentSection() {
                                         replyInputContainer.style.marginTop = '8px';
                                         replyInputContainer.innerHTML = `
                                             <div style="width: 32px; height: 32px; background-color: gray; border-radius: 50%; margin-right: 12px;"></div>
-                                            <input style="background-color: #181818; color: white; border: 1px solid #303030; border-radius: 2px; padding: 10px; flex-grow: 1; margin-right: 8px; height: 20px;" placeholder="Add a reply...">
+                                            <input style="background-color: #181818; color: white; border: none; border-bottom: 1px solid #303030; padding: 10px; flex-grow: 1; margin-right: 8px; height: 20px;" placeholder="Add a reply...">
                                             <button style="background-color: #065fd4; color: white; border: none; padding: 5px 10px; border-radius: 2px;" class="post-reply">Reply</button>
                                             <button style="background-color: transparent; color: white; border: none; padding: 5px 10px; border-radius: 2px;" class="cancel-reply">Cancel</button>
                                         `;
@@ -87,7 +102,7 @@ function injectCommentSection() {
                                     }
                                 });
                             }
-                        });
+                        }
 
                         observer.disconnect();  // Stop observing once the comment section is added
                     }
