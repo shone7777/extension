@@ -27,7 +27,9 @@ function injectCommentSection() {
                                 </div>
                             </div>
                             <div style="display: flex; align-items: center; margin-bottom: 16px;">
-                                <div style="width: 40px; height: 40px; background-color: gray; border-radius: 50%; margin-right: 12px;"></div>
+                                <div style="width: 40px; height: 40px; background-color: gray; border-radius: 50%; margin-right: 12px;">
+                                    <img src="https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png" alt="User Icon" style="width: 100%; height: 100%; border-radius: 50%;">
+                                </div>
                                 <input style="background-color: #181818; color: white; border: none; border-bottom: 1px solid #303030; padding: 10px; flex-grow: 1; margin-right: 8px; height: 20px;" id="comment-input" placeholder="Add a comment...">
                             </div>
                             <div id="comments-container" style="margin-top: 16px;"></div>
@@ -49,7 +51,9 @@ function injectCommentSection() {
                                 commentElement.style.marginBottom = '16px';
                                 commentElement.innerHTML = `
                                     <div style="display: flex; align-items: center; margin-bottom: 8px;">
-                                        <div style="width: 40px; height: 40px; background-color: gray; border-radius: 50%; margin-right: 12px;"></div>
+                                        <div style="width: 40px; height: 40px; background-color: gray; border-radius: 50%; margin-right: 12px;">
+                                            <img src="https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png" alt="User Icon" style="width: 100%; height: 100%; border-radius: 50%;">
+                                        </div>
                                         <div style="background-color: #181818; color: white; border: 1px solid #303030; border-radius: 2px; padding: 10px; flex-grow: 1;">
                                             <strong style="color: white;">${randomName}</strong>
                                             <p style="margin: 0;">${comment}</p>
@@ -72,7 +76,9 @@ function injectCommentSection() {
                                         replyInputContainer.style.alignItems = 'center';
                                         replyInputContainer.style.marginTop = '8px';
                                         replyInputContainer.innerHTML = `
-                                            <div style="width: 32px; height: 32px; background-color: gray; border-radius: 50%; margin-right: 12px;"></div>
+                                            <div style="width: 32px; height: 32px; background-color: gray; border-radius: 50%; margin-right: 12px;">
+                                                <img src="https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png" alt="User Icon" style="width: 100%; height: 100%; border-radius: 50%;">
+                                            </div>
                                             <input style="background-color: #181818; color: white; border: none; border-bottom: 1px solid #303030; padding: 10px; flex-grow: 1; margin-right: 8px; height: 20px;" placeholder="Add a reply...">
                                             <button style="background-color: #065fd4; color: white; border: none; padding: 5px 10px; border-radius: 2px;" class="post-reply">Reply</button>
                                             <button style="background-color: transparent; color: white; border: none; padding: 5px 10px; border-radius: 2px;" class="cancel-reply">Cancel</button>
@@ -87,10 +93,19 @@ function injectCommentSection() {
                                         postReplyButton.addEventListener('click', () => {
                                             const replyText = replyInput.value;
                                             if (replyText) {
-                                                const replyElement = document.createElement('p');
-                                                replyElement.textContent = replyText;
-                                                replyElement.style.margin = '8px 0';
-                                                replyElement.style.color = 'white';
+                                                const replyElement = document.createElement('div');
+                                                replyElement.style.display = 'flex';
+                                                replyElement.style.alignItems = 'center';
+                                                replyElement.style.marginTop = '8px';
+                                                replyElement.innerHTML = `
+                                                    <div style="width: 32px; height: 32px; background-color: gray; border-radius: 50%; margin-right: 12px;">
+                                                        <img src="https://toppng.com/uploads/preview/male-user-filled-icon-man-icon-115533970576b3erfsss1.png" alt="User Icon" style="width: 100%; height: 100%; border-radius: 50%;">
+                                                    </div>
+                                                    <div style="background-color: #181818; color: white; border: 1px solid #303030; border-radius: 2px; padding: 10px; flex-grow: 1;">
+                                                        <strong style="color: white;">${randomName}</strong>
+                                                        <p style="margin: 0;">${replyText}</p>
+                                                    </div>
+                                                `;
                                                 repliesContainer.insertBefore(replyElement, replyInputContainer);
                                                 replyInput.value = '';
                                             }
